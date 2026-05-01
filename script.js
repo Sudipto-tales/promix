@@ -462,7 +462,7 @@
     }
   });
   aboutTl.from('.about-label', { y: 50, opacity: 0 }, 0);
-  aboutTl.from('.about-heading', { clipPath: 'inset(100% 0 0 0)', y: 60, opacity: 0 }, 0.05);
+  aboutTl.fromTo('.about-heading', { x: -100, opacity: 0 }, { x: 0, opacity: 1, duration: 1.5, ease: 'none' }, 0.05);
   aboutTl.from('.about-body', { x: -100, opacity: 0 }, 0.15);
   aboutTl.from('.about-illus-wrap', { x: 80, opacity: 0, scale: 0.85 }, 0.1);
 
@@ -505,7 +505,7 @@
     scrollTrigger: { trigger: '#terminal-section', start: 'top 85%', end: 'top 30%', scrub: 1 }
   });
   termTl.fromTo('.terminal-left .section-label', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3 }, 0);
-  termTl.fromTo('.terminal-left h2', { clipPath: 'inset(100% 0 0 0)', y: 60, opacity: 0 }, { clipPath: 'inset(0% 0 0 0)', y: 0, opacity: 1, duration: 0.4 }, 0.1);
+  termTl.fromTo('.terminal-left h2', { x: -100, opacity: 0 }, { x: 0, opacity: 1, duration: 1.5, ease: 'none' }, 0.1);
   termTl.fromTo('.terminal-left p', { x: -80, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3 }, 0.2);
   termTl.fromTo('.terminal-window', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4 }, 0.15);
 
@@ -834,14 +834,14 @@
   const svcHeadTl = gsap.timeline({
     scrollTrigger: { trigger: '.services-header', start: 'top 85%', end: 'top 40%', scrub: 1 }
   });
-  svcHeadTl.fromTo('.services-heading', { clipPath: 'inset(100% 0 0 0)', y: 60, opacity: 0 }, { clipPath: 'inset(0% 0 0 0)', y: 0, opacity: 1, duration: 0.5 }, 0);
+  svcHeadTl.fromTo('.services-heading', { x: -100, opacity: 0 }, { x: 0, opacity: 1, duration: 1.5, ease: 'none' }, 0);
   svcHeadTl.fromTo('.services-desc', { x: -80, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4 }, 0.2);
 
   // Approach section — scrub on scroll
   const approachTl = gsap.timeline({
     scrollTrigger: { trigger: '#approach', start: 'top 80%', end: 'top 30%', scrub: 1 }
   });
-  approachTl.fromTo('.approach-top h2', { clipPath: 'inset(100% 0 0 0)', y: 60, opacity: 0 }, { clipPath: 'inset(0% 0 0 0)', y: 0, opacity: 1, duration: 0.4 }, 0);
+  approachTl.fromTo('.approach-top h2', { x: -100, opacity: 0 }, { x: 0, opacity: 1, duration: 1.5, ease: 'none' }, 0);
   gsap.utils.toArray('.step').forEach((step, i) => {
     gsap.fromTo(step,
       { rotateX: -90, scaleY: 0, opacity: 0, transformOrigin: 'top center' },
