@@ -419,6 +419,7 @@
     tl.to('.nav-links a', { y: 0, stagger: 0.08, duration: 0.7, ease: 'power4.out' }, '-=0.5');
     tl.to('#nav-cta', { opacity: 1, y: 0, duration: 0.6 }, '-=0.4');
     tl.to('.theme-toggle', { opacity: 1, y: 0, duration: 0.6 }, '-=0.5');
+    tl.to('#nav-hamburger', { opacity: 1, y: 0, duration: 0.6 }, '-=0.5');
 
     // Phase 4: Hero text slides in
     gsap.set('#line1', { x: -120, opacity: 0 });
@@ -925,6 +926,120 @@
     wrapper.appendChild(inner);
     textNodes.forEach(n => n.remove());
     btn.insertBefore(wrapper, btn.firstChild);
+  });
+
+  // ===== MOBILE MENU =====
+  // Build the overlay dynamically and append to body to escape any stacking contexts
+  const mobileMenuHTML = `
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay" aria-hidden="true">
+      <div class="mobile-menu-header">
+        <div class="mobile-menu-brand">Pro<em>mix</em></div>
+        <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">CLOSE</button>
+      </div>
+      <div class="mobile-menu-nav" role="navigation">
+        <ul class="mobile-menu-list">
+          <li class="mobile-menu-item">
+            <a href="#hero" class="mobile-menu-link">
+              <img src="images/photo-1460925895917-afdab827c52f.jpg" alt="" class="mobile-menu-thumb" loading="lazy">
+              <span>Home</span>
+            </a>
+          </li>
+          <li class="mobile-menu-item">
+            <a href="#work" class="mobile-menu-link">
+              <span>Work</span>
+            </a>
+          </li>
+          <li class="mobile-menu-item">
+            <a href="#services" class="mobile-menu-link">
+              <img src="images/photo-1551434678-e076c223a692.jpg" alt="" class="mobile-menu-thumb" loading="lazy">
+              <span>Services</span>
+            </a>
+          </li>
+          <li class="mobile-menu-item">
+            <a href="#approach" class="mobile-menu-link">
+              <span>Approach</span>
+            </a>
+          </li>
+          <li class="mobile-menu-item">
+            <a href="#about" class="mobile-menu-link">
+              <img src="images/photo-1559136555-9303baea8ebd.jpg" alt="" class="mobile-menu-thumb" loading="lazy">
+              <span>About</span>
+            </a>
+          </li>
+          <li class="mobile-menu-item">
+            <a href="#testimonials" class="mobile-menu-link">
+              <span>Clients</span>
+            </a>
+          </li>
+          <li class="mobile-menu-item">
+            <a href="#cta" class="mobile-menu-link mobile-menu-link--cta">
+              <span>Let's Talk</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="mobile-menu-footer">
+        <span>&copy; 2025 Promix</span>
+        <div class="mobile-menu-socials">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Twitter">TW</a>
+          <a href="#" aria-label="LinkedIn">LI</a>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', mobileMenuHTML);
+
+  const hamburgerBtn = document.getElementById('nav-hamburger');
+  const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+  const mobileMenuClose = document.getElementById('mobile-menu-close');
+  const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+  let menuOpen = false;
+
+  function openMobileMenu() {
+    menuOpen = true;
+    const scrollY = window.scrollY || window.pageYOffset;
+    mobileMenuOverlay.style.top = scrollY + 'px';
+    mobileMenuOverlay.style.position = 'absolute';
+    mobileMenuOverlay.classList.add('is-open');
+    mobileMenuOverlay.setAttribute('aria-hidden', 'false');
+    hamburgerBtn.classList.add('is-open');
+    hamburgerBtn.setAttribute('aria-expanded', 'true');
+    lenis.stop();
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobileMenu() {
+    menuOpen = false;
+    mobileMenuOverlay.classList.remove('is-open');
+    mobileMenuOverlay.setAttribute('aria-hidden', 'true');
+    hamburgerBtn.classList.remove('is-open');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+    lenis.start();
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      mobileMenuOverlay.style.top = '';
+      mobileMenuOverlay.style.position = '';
+    }, 500);
+  }
+
+  hamburgerBtn.addEventListener('click', () => {
+    if (menuOpen) closeMobileMenu();
+    else openMobileMenu();
+  });
+
+  mobileMenuClose.addEventListener('click', closeMobileMenu);
+
+  // Close when any nav link is clicked (use delegation since we used insertAdjacentHTML)
+  mobileMenuOverlay.addEventListener('click', e => {
+    const link = e.target.closest('.mobile-menu-link');
+    if (link) {
+      closeMobileMenu();
+    }
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && menuOpen) closeMobileMenu();
   });
 
 })();
