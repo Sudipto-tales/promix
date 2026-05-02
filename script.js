@@ -42,11 +42,24 @@
     return document.documentElement.getAttribute('data-theme') === 'dark';
   }
 
+  function getAccentRGB() {
+    const style = getComputedStyle(document.documentElement);
+    const hex = style.getPropertyValue('--accent').trim();
+    if (hex && hex.startsWith('#')) {
+      const r = parseInt(hex.slice(1,3), 16);
+      const g = parseInt(hex.slice(3,5), 16);
+      const b = parseInt(hex.slice(5,7), 16);
+      return `${r},${g},${b}`;
+    }
+    return isDark() ? '20,184,166' : '30,64,175';
+  }
+
   function draw() {
     ctx.clearRect(0, 0, w, h);
     const dark = isDark();
-    const nodeColor = dark ? '20,184,166' : '30,64,175';
-    const lineColor = dark ? '20,184,166' : '30,64,175';
+    const accentRGB = getAccentRGB();
+    const nodeColor = accentRGB;
+    const lineColor = accentRGB;
     const gridColor = dark ? '255,255,255' : '15,23,42';
     const gridAlpha = dark ? 0.025 : 0.035;
 
@@ -203,6 +216,90 @@
   });
   const savedTheme = localStorage.getItem('promix-theme');
   if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+
+  // ===== PALETTE SIDEBAR =====
+  const paletteTrigger = document.getElementById('palette-trigger');
+  const paletteSidebar = document.getElementById('palette-sidebar');
+  const paletteClose = document.getElementById('palette-close');
+  const paletteSwatches = document.querySelectorAll('.palette-swatch');
+  const paletteFontBtns = document.querySelectorAll('.palette-font-btn');
+  const paletteTabs = document.querySelectorAll('.palette-tab');
+  const paletteTabContents = document.querySelectorAll('.palette-tab-content');
+
+  if (paletteTrigger && paletteSidebar) {
+    paletteTrigger.addEventListener('mouseenter', () => {
+      paletteSidebar.classList.add('open');
+    });
+    paletteSidebar.addEventListener('mouseleave', (e) => {
+      if (e.clientX >= window.innerWidth - 25) return;
+      paletteSidebar.classList.remove('open');
+    });
+    if (paletteClose) {
+      paletteClose.addEventListener('click', () => {
+        paletteSidebar.classList.remove('open');
+      });
+    }
+
+    // Tab switching
+    paletteTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        paletteTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const target = tab.dataset.tab;
+        paletteTabContents.forEach(c => {
+          c.classList.toggle('active', c.dataset.tabContent === target);
+        });
+      });
+    });
+
+    // Color palette selection
+    paletteSwatches.forEach(swatch => {
+      swatch.addEventListener('click', () => {
+        const palette = swatch.dataset.palette;
+        if (palette) {
+          document.documentElement.setAttribute('data-palette', palette);
+        } else {
+          document.documentElement.removeAttribute('data-palette');
+        }
+        localStorage.setItem('promix-palette', palette);
+        paletteSwatches.forEach(s => s.classList.remove('active'));
+        swatch.classList.add('active');
+      });
+    });
+
+    // Font style selection
+    paletteFontBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const font = btn.dataset.font;
+        if (font) {
+          document.documentElement.setAttribute('data-font', font);
+        } else {
+          document.documentElement.removeAttribute('data-font');
+        }
+        localStorage.setItem('promix-font', font);
+        paletteFontBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // Restore saved palette
+    const savedPalette = localStorage.getItem('promix-palette');
+    if (savedPalette) {
+      document.documentElement.setAttribute('data-palette', savedPalette);
+      paletteSwatches.forEach(s => {
+        s.classList.toggle('active', s.dataset.palette === savedPalette);
+      });
+    }
+
+    // Restore saved font
+    const savedFont = localStorage.getItem('promix-font');
+    if (savedFont) {
+      document.documentElement.setAttribute('data-font', savedFont);
+      paletteFontBtns.forEach(b => {
+        b.classList.toggle('active', b.dataset.font === savedFont);
+      });
+    }
+  }
 
   // ===== WORD FLIP =====
   const wordsToRotate = ["Strategy", "Marketing", "Technology", "Growth"];

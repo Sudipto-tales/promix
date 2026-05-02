@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PROMIX | Strength in Strategy, Power in Progress</title>
-<script>history.scrollRestoration = 'manual'; window.scrollTo(0, 0);</script>
+<script>history.scrollRestoration = 'manual'; window.scrollTo(0, 0);
+(function(){var p=localStorage.getItem('promix-palette');if(p)document.documentElement.setAttribute('data-palette',p);var f=localStorage.getItem('promix-font');if(f)document.documentElement.setAttribute('data-font',f);})();</script>
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 <link rel="preconnect" href="https://unpkg.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +13,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@400;500;600;700;800;900&family=Lora:wght@400;500;600;700&family=Nunito:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -247,9 +248,9 @@
     <div class="about-illus-wrap">
       <div class="about-blob about-blob-1"></div>
       <div class="about-blob about-blob-2"></div>
-      <div class="deco-dot" style="width:10px;height:10px;background:#14b8a6;top:5%;right:15%;position:absolute;border-radius:50%;animation:dotPulse 4s ease-in-out infinite;"></div>
-      <div class="deco-dot" style="width:7px;height:7px;background:#f97316;bottom:15%;left:10%;position:absolute;border-radius:50%;animation:dotPulse 5s ease-in-out infinite 1s;"></div>
-      <div class="deco-leaf" style="width:40px;height:40px;top:-5%;right:5%;position:absolute;opacity:0.6;animation:leafSway1 6s ease-in-out infinite;"><svg viewBox="0 0 40 40"><path d="M20 2 C32 10 38 25 20 38 C2 25 8 10 20 2Z" fill="#14b8a6" opacity="0.5"/></svg></div>
+      <div class="deco-dot" style="width:10px;height:10px;background:var(--accent);top:5%;right:15%;position:absolute;border-radius:50%;animation:dotPulse 4s ease-in-out infinite;"></div>
+      <div class="deco-dot" style="width:7px;height:7px;background:var(--accent-secondary);bottom:15%;left:10%;position:absolute;border-radius:50%;animation:dotPulse 5s ease-in-out infinite 1s;"></div>
+      <div class="deco-leaf" style="width:40px;height:40px;top:-5%;right:5%;position:absolute;opacity:0.6;animation:leafSway1 6s ease-in-out infinite;"><svg viewBox="0 0 40 40"><path d="M20 2 C32 10 38 25 20 38 C2 25 8 10 20 2Z" fill="currentColor" style="color:var(--accent)" opacity="0.5"/></svg></div>
       <img src="https://cdn.jsdelivr.net/gh/balazser/undraw-svg-collection@main/svgs/creative-team.svg" alt="Creative team illustration" loading="lazy">
     </div>
     <div class="about-stats">
@@ -562,6 +563,78 @@
 
 </footer>
 
+
+<!-- THEME PALETTE SIDEBAR -->
+<div class="palette-trigger" id="palette-trigger"></div>
+<aside class="palette-sidebar" id="palette-sidebar">
+  <div class="palette-header">
+    <span class="palette-title">Theme Palette</span>
+    <button class="palette-close" id="palette-close">&times;</button>
+  </div>
+  <div class="palette-tab-bar">
+    <button class="palette-tab active" data-tab="colors">Colors</button>
+    <button class="palette-tab" data-tab="fonts">Fonts</button>
+  </div>
+  <div class="palette-tab-content active" data-tab-content="colors">
+    <div class="palette-list">
+      <button class="palette-swatch active" data-palette="">
+        <div class="palette-preview">
+          <span class="swatch-dot" style="background:#14b8a6"></span>
+          <span class="swatch-dot" style="background:#1e40af"></span>
+        </div>
+        <span class="palette-name">Default</span>
+      </button>
+      <button class="palette-swatch" data-palette="blue">
+        <div class="palette-preview">
+          <span class="swatch-dot" style="background:#3b82f6"></span>
+          <span class="swatch-dot" style="background:#8b5cf6"></span>
+        </div>
+        <span class="palette-name">Blue</span>
+      </button>
+      <button class="palette-swatch" data-palette="soft-teal">
+        <div class="palette-preview">
+          <span class="swatch-dot" style="background:#2dd4bf"></span>
+          <span class="swatch-dot" style="background:#06b6d4"></span>
+        </div>
+        <span class="palette-name">Soft Teal</span>
+      </button>
+      <button class="palette-swatch" data-palette="ember">
+        <div class="palette-preview">
+          <span class="swatch-dot" style="background:#f97316"></span>
+          <span class="swatch-dot" style="background:#ef4444"></span>
+        </div>
+        <span class="palette-name">Ember</span>
+      </button>
+      <button class="palette-swatch" data-palette="rose">
+        <div class="palette-preview">
+          <span class="swatch-dot" style="background:#f43f5e"></span>
+          <span class="swatch-dot" style="background:#a855f7"></span>
+        </div>
+        <span class="palette-name">Rose</span>
+      </button>
+    </div>
+  </div>
+  <div class="palette-tab-content" data-tab-content="fonts">
+    <div class="palette-font-list">
+      <button class="palette-font-btn active" data-font="">
+        <span class="palette-font-preview" style="font-family:'Libre Franklin',sans-serif">Aa</span>
+        <span class="palette-font-name">Default</span>
+      </button>
+      <button class="palette-font-btn" data-font="serif">
+        <span class="palette-font-preview" style="font-family:'Playfair Display',Georgia,serif">Aa</span>
+        <span class="palette-font-name">Serif</span>
+      </button>
+      <button class="palette-font-btn" data-font="mono">
+        <span class="palette-font-preview" style="font-family:'JetBrains Mono',monospace">Aa</span>
+        <span class="palette-font-name">Mono</span>
+      </button>
+      <button class="palette-font-btn" data-font="rounded">
+        <span class="palette-font-preview" style="font-family:'Nunito','Varela Round',sans-serif">Aa</span>
+        <span class="palette-font-name">Rounded</span>
+      </button>
+    </div>
+  </div>
+</aside>
 
 <script src="script.js"></script>
 </body>
