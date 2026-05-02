@@ -945,36 +945,70 @@
             </a>
           </li>
           <li class="mobile-menu-item">
-            <a href="#work" class="mobile-menu-link">
-              <span>Work</span>
-            </a>
-          </li>
-          <li class="mobile-menu-item">
-            <a href="#services" class="mobile-menu-link">
-              <img src="images/photo-1551434678-e076c223a692.jpg" alt="" class="mobile-menu-thumb" loading="lazy">
-              <span>Services</span>
-            </a>
-          </li>
-          <li class="mobile-menu-item">
-            <a href="#approach" class="mobile-menu-link">
-              <span>Approach</span>
-            </a>
-          </li>
-          <li class="mobile-menu-item">
-            <a href="#about" class="mobile-menu-link">
+            <a href="about.html" class="mobile-menu-link">
               <img src="images/photo-1559136555-9303baea8ebd.jpg" alt="" class="mobile-menu-thumb" loading="lazy">
               <span>About</span>
             </a>
           </li>
           <li class="mobile-menu-item">
-            <a href="#testimonials" class="mobile-menu-link">
-              <span>Clients</span>
-            </a>
+            <div style="display:flex;align-items:center;">
+              <a href="services.html" class="mobile-menu-link">
+                <img src="images/photo-1551434678-e076c223a692.jpg" alt="" class="mobile-menu-thumb" loading="lazy">
+                <span>Services</span>
+              </a>
+              <button class="mobile-services-toggle" id="mobile-services-toggle" aria-label="Expand services">+</button>
+            </div>
+            <div class="mobile-services-accordion" id="mobile-services-accordion">
+              <div class="mobile-services-group">
+                <div class="mobile-services-group-title">AI Engineering (Featured)</div>
+                <a href="coming-soon.html">Machine Learning</a>
+                <a href="coming-soon.html">Generative AI</a>
+                <a href="coming-soon.html">Intelligent Chatbots</a>
+                <a href="coming-soon.html">Computer Vision</a>
+                <a href="coming-soon.html">NLP</a>
+                <a href="coming-soon.html">Deep Learning</a>
+              </div>
+              <div class="mobile-services-group">
+                <div class="mobile-services-group-title">Data Intelligence &amp; Automation</div>
+                <a href="coming-soon.html">Data Governance &amp; Analysis</a>
+                <a href="coming-soon.html">Real-time Intelligence</a>
+                <a href="coming-soon.html">Scalable Analytics</a>
+              </div>
+              <div class="mobile-services-group">
+                <div class="mobile-services-group-title">Automation &amp; System Integration</div>
+                <a href="coming-soon.html">Intelligent Automation</a>
+                <a href="coming-soon.html">Multi-system Integration</a>
+                <a href="coming-soon.html">Workflow Optimization</a>
+              </div>
+              <div class="mobile-services-group">
+                <div class="mobile-services-group-title">Full-Stack Product Engineering</div>
+                <a href="coming-soon.html">Mobile Apps (iOS &amp; Android)</a>
+                <a href="coming-soon.html">Web Applications</a>
+              </div>
+              <div class="mobile-services-group">
+                <div class="mobile-services-group-title">Digital Experience</div>
+                <a href="coming-soon.html">Digital &amp; Content Marketing</a>
+                <a href="coming-soon.html">SEO &amp; SMO Strategy</a>
+              </div>
+              <div class="mobile-services-group">
+                <div class="mobile-services-group-title">Branding &amp; Identity Design</div>
+                <a href="coming-soon.html">Brand Identity</a>
+                <a href="coming-soon.html">Visual Design</a>
+                <a href="coming-soon.html">UI/UX Design</a>
+              </div>
+            </div>
           </li>
           <li class="mobile-menu-item">
-            <a href="#cta" class="mobile-menu-link mobile-menu-link--cta">
-              <span>Let's Talk</span>
-            </a>
+            <a href="work.html" class="mobile-menu-link"><span>Work</span></a>
+          </li>
+          <li class="mobile-menu-item">
+            <a href="clients.html" class="mobile-menu-link"><span>Clients</span></a>
+          </li>
+          <li class="mobile-menu-item">
+            <a href="blog.html" class="mobile-menu-link"><span>Blog</span></a>
+          </li>
+          <li class="mobile-menu-item">
+            <a href="contact.html" class="mobile-menu-link mobile-menu-link--cta"><span>Contact</span></a>
           </li>
         </ul>
       </div>
@@ -989,6 +1023,18 @@
     </div>
   `;
   document.body.insertAdjacentHTML('beforeend', mobileMenuHTML);
+
+  // Services accordion in mobile menu
+  const mobileServicesToggle = document.getElementById('mobile-services-toggle');
+  const mobileServicesAccordion = document.getElementById('mobile-services-accordion');
+  if (mobileServicesToggle && mobileServicesAccordion) {
+    mobileServicesToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      mobileServicesAccordion.classList.toggle('is-open');
+      mobileServicesToggle.classList.toggle('is-open');
+    });
+  }
 
   const hamburgerBtn = document.getElementById('nav-hamburger');
   const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
@@ -1036,6 +1082,8 @@
     if (link) {
       closeMobileMenu();
     }
+    const serviceLink = e.target.closest('.mobile-services-group a');
+    if (serviceLink) closeMobileMenu();
   });
 
   document.addEventListener('keydown', e => {
