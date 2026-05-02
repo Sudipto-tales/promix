@@ -256,6 +256,7 @@ body {
   text-transform: uppercase;
 }
 .nav-link-wrap { overflow: hidden; height: 1.4em; display: flex; align-items: center; }
+.nav-link-wrap.nav-has-dropdown { overflow: visible; height: auto; }
 .nav-links a {
   color: var(--text-secondary);
   text-decoration: none;
@@ -1951,8 +1952,8 @@ footer .footer-bottom {
 /* Footer Grid */
 .footer-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1.2fr;
-  gap: 40px;
+  grid-template-columns: 1fr 1fr 1fr 1.4fr 1.2fr;
+  gap: 36px;
   padding-bottom: 40px;
 }
 .footer-grid-col h5 {
@@ -2022,6 +2023,49 @@ footer .footer-bottom {
   transition: background 0.3s;
 }
 .footer-subscribe-form button:hover { background: #0d9488; }
+.footer-address {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  line-height: 1.6;
+  transition: color 0.2s;
+}
+.footer-address:hover { color: var(--accent); }
+.footer-address svg { flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+.footer-phone-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+.footer-phone-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-phone-link:hover { color: var(--accent); }
+.footer-phone-link svg { color: var(--accent); flex-shrink: 0; }
+.footer-wa-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #25D366;
+  color: #fff;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.footer-wa-link:hover { transform: scale(1.1); box-shadow: 0 0 12px rgba(37,211,102,0.4); }
 .footer-socials { display: flex; gap: 12px; margin-top: 16px; }
 .footer-socials a {
   width: 34px;
@@ -2130,7 +2174,7 @@ footer .footer-bottom {
 @media (max-width: 1200px) {
   .services-header { flex-direction: column; gap: 20px; }
   .services-desc { text-align: left; max-width: 100%; }
-  .footer-grid { grid-template-columns: 1fr 1fr 1fr 1.2fr; gap: 30px; }
+  .footer-grid { grid-template-columns: 1fr 1fr 1fr 1.4fr 1.2fr; gap: 24px; }
 }
 
 /* Tablets */
@@ -2263,6 +2307,42 @@ footer .footer-bottom {
 /* ===== 1. NAV ACTIVE STATE ===== */
 .nav-links a.nav-active { color: var(--accent); }
 
+/* ===== NAV BADGES ===== */
+.nav-badge {
+  font-family: var(--font-mono);
+  font-size: 0.4rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 20px;
+  line-height: 1;
+  white-space: nowrap;
+  vertical-align: middle;
+  margin-left: 6px;
+  display: inline-block;
+}
+.nav-badge--new {
+  background: var(--accent);
+  color: var(--bg);
+}
+.nav-badge--hot {
+  background: #ef4444;
+  color: #fff;
+}
+.nav-badge--count {
+  background: rgba(var(--accent-rgb, 20,184,166), 0.15);
+  color: var(--accent);
+  border: 1px solid rgba(var(--accent-rgb, 20,184,166), 0.3);
+}
+.mega-svc-title .nav-badge,
+.mega-featured-title .nav-badge {
+  font-size: 0.38rem;
+  padding: 2px 5px;
+  vertical-align: top;
+  margin-left: 4px;
+}
+
 /* ===== 2. SUBPAGE NAVBAR (visible immediately, no intro clip) ===== */
 .nav-subpage {
   visibility: visible !important;
@@ -2281,6 +2361,19 @@ footer .footer-bottom {
 
 /* ===== 3. SERVICES MEGA DROPDOWN (glass panel, desktop) ===== */
 .nav-has-dropdown { position: relative; }
+.nav-has-dropdown::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: -50vw;
+  width: 200vw;
+  height: 50px;
+  z-index: 1000;
+  display: none;
+}
+.nav-has-dropdown:hover::before {
+  display: block;
+}
 .nav-mega-dropdown {
   position: fixed;
   top: 80px;
@@ -3279,6 +3372,17 @@ footer .footer-bottom {
   color: #ef4444;
   border: 1px solid rgba(239,68,68,0.3);
   background: rgba(239,68,68,0.05);
+}
+
+/* Contact map section */
+.contact-map-section {
+  padding: 0 min(10%, 120px) 40px;
+  position: relative;
+  z-index: 1;
+}
+.contact-map-section iframe {
+  width: 100%;
+  display: block;
 }
 
 /* Contact bottom strip */
@@ -4488,3 +4592,74 @@ footer .footer-bottom {
 @media (max-width: 500px) {
   .palette-sidebar { width: 100%; }
 }
+
+/* ===== MOBILE MENU PALETTE ===== */
+.mobile-menu-palette {
+  padding: 20px 32px;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+.mobile-palette-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+.mobile-palette-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mobile-palette-swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: border-color 0.25s, transform 0.25s;
+}
+.mobile-palette-swatch span {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: block;
+}
+.mobile-palette-swatch:hover,
+.mobile-palette-swatch.is-active {
+  border-color: var(--accent);
+  transform: scale(1.15);
+}
+.mobile-theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--glass-bg, rgba(255,255,255,0.06));
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 16px;
+  color: var(--text-primary);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: border-color 0.25s, background 0.25s;
+}
+.mobile-theme-toggle:hover {
+  border-color: var(--accent);
+}
+[data-theme="dark"] .mobile-theme-toggle .icon-sun { display: none; }
+[data-theme="dark"] .mobile-theme-toggle .icon-moon { display: inline-block; }
+[data-theme="light"] .mobile-theme-toggle .icon-moon { display: none; }
+[data-theme="light"] .mobile-theme-toggle .icon-sun { display: inline-block; }
+.mobile-theme-toggle .icon-sun,
+.mobile-theme-toggle .icon-moon { display: none; }
+/* default (dark) */
+.mobile-theme-toggle .icon-moon { display: inline-block; }
